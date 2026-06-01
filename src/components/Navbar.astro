@@ -1,0 +1,41 @@
+---
+const links = [
+  { href: '/', label: 'Inicio' },
+  { href: '/about', label: 'Sobre mí' },
+  { href: '/proyectos', label: 'Proyectos' },
+  { href: '/contacto', label: 'Contacto' },
+];
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  class="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-sm border-b border-gray-800"
+>
+  <nav class="container mx-auto px-4 flex items-center justify-between h-16">
+    <a href="/" class="text-xl font-bold text-white hover:text-blue-500 transition-colors">
+      Sagiiiii
+    </a>
+
+    <ul class="hidden md:flex items-center gap-8">
+      {
+        links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              class="text-sm font-medium text-gray-400 transition-colors hover:text-blue-500"
+            >
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <a
+      href="/contacto"
+      class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+    >
+      Contrátame
+    </a>
+  </nav>
+</header>

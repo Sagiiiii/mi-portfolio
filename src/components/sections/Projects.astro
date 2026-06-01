@@ -1,0 +1,66 @@
+---
+const proyectos = [
+  {
+    titulo: 'Portfolio Personal',
+    descripcion: 'Mi portfolio profesional construido con Astro, React y TailwindCSS.',
+    tags: ['Astro', 'React', 'Tailwind'],
+    link: '#',
+    repo: '#',
+  },
+  {
+    titulo: 'App del Clima',
+    descripcion: 'Aplicación que muestra el clima en tiempo real usando la API de OpenWeather.',
+    tags: ['React', 'API', 'Tailwind'],
+    link: '#',
+    repo: '#',
+  },
+  {
+    titulo: 'Todo App',
+    descripcion: 'Gestor de tareas con filtros, prioridades y almacenamiento local.',
+    tags: ['React', 'TypeScript', 'Tailwind'],
+    link: '#',
+    repo: '#',
+  },
+];
+---
+
+<section class="py-20">
+  <div class="container mx-auto px-4">
+    <div class="mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Mis Proyectos</h2>
+      <p class="text-gray-400 text-lg">Algunos de los proyectos que he construido recientemente.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        proyectos.map((proyecto) => (
+          <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 hover:border-blue-500/50 transition-all hover:-translate-y-1">
+            <h3 class="text-xl font-bold text-white mb-3">{proyecto.titulo}</h3>
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">{proyecto.descripcion}</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              {proyecto.tags.map((tag) => (
+                <span class="bg-blue-500/10 text-blue-400 text-xs font-medium px-3 py-1 rounded-full border border-blue-500/20">
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div class="flex gap-4">
+              <a
+                href={proyecto.link}
+                class="text-sm text-white font-medium hover:text-blue-500 transition-colors"
+              >
+                Ver demo →
+              </a>
+              <a
+                href={proyecto.repo}
+                class="text-sm text-gray-400 font-medium hover:text-white transition-colors"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
