@@ -155,7 +155,7 @@ export const PROJECTS: Project[] = [
     githubUrls: [
       { label: "Repositorio", url: "https://github.com/Sagiiiii/mi-portfolio" },
     ],
-    liveUrl: "https://sagiii-portfolio.vercel.app",
+    liveUrl: "https://mi-portfolio-rho-seven.vercel.app",
     imageUrl: "",
     categories: ["web", "frontend"],
     featured: true,
