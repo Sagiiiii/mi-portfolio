@@ -1,0 +1,160 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import { PROJECTS } from '../../data/projects';
+
+export async function getStaticPaths() {
+  return PROJECTS.map((p) => ({ params: { id: String(p.id) } }));
+}
+
+const { id } = Astro.params;
+const project = PROJECTS.find((p) => p.id === Number(id));
+
+if (!project) return Astro.redirect('/proyectos');
+
+function getPlaceholder(technologies: string[]): string {
+  const tech = technologies[0]?.toLowerCase() ?? '';
+  const colorMap: Record<string, [string, string]> = {
+    astro:   ['#FF5D01', '#FF8C00'],
+    python:  ['#3776AB', '#4B8BBE'],
+    laravel: ['#F55247', '#FF6B6B'],
+    javascript: ['#F7DF1E', '#F0C000'],
+    html:    ['#E34F26', '#F06529'],
+    flutter: ['#54C5F8', '#01579B'],
+  };
+  const [c1, c2] = colorMap[tech] ?? ['#E8651A', '#B84E10'];
+  const initial = (technologies[0] ?? '?')[0].toUpperCase();
+  return `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${encodeURIComponent(c1)}"/><stop offset="1" stop-color="${encodeURIComponent(c2)}"/></linearGradient></defs><rect width="800" height="400" fill="url(%23g)"/><text x="400" y="215" text-anchor="middle" font-size="140" font-family="Arial" font-weight="bold" fill="white" opacity="0.9">${initial}</text></svg>`;
+}
+
+const imgSrc = project.imageUrl || getPlaceholder(project.technologies);
+
+// Prev / Next
+const idx = PROJECTS.findIndex((p) => p.id === project.id);
+const prev = idx > 0 ? PROJECTS[idx - 1] : null;
+const next = idx < PROJECTS.length - 1 ? PROJECTS[idx + 1] : null;
+---
+
+<Layout title={`${project.title} — Sagiii.dev`} description={project.shortDesc}>
+  <div class="max-w-4xl mx-auto px-4 py-16">
+
+    <!-- Back -->
+    <a href="/proyectos" class="inline-flex items-center gap-2 text-muted hover:text-fox text-sm no-underline transition-colors mb-8 group">
+      <span class="group-hover:-translate-x-1 transition-transform">←</span>
+      Volver a proyectos
+    </a>
+
+    <!-- Header del proyecto -->
+    <div class="mb-8">
+      <span class="tech-badge capitalize mb-3 inline-block">{project.categories[0]}</span>
+      <h1 class="font-display font-bold text-3xl lg:text-4xl mb-3 leading-tight">{project.title}</h1>
+      <p class="text-muted text-lg leading-relaxed">{project.shortDesc}</p>
+    </div>
+
+    <!-- Imagen -->
+    <div class="rounded-xl overflow-hidden mb-8 border border-border" style="max-height:400px">
+      <img src={imgSrc} alt={project.title} class="w-full object-cover" style="max-height:400px" />
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="flex flex-wrap gap-3 mb-10">
+      {project.githubUrls.map((repo) => (
+        <a
+          href={repo.url}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm border border-fox text-fox hover:bg-fox hover:text-white transition-all no-underline"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.4.6.1.82-.26.82-.58v-2c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.32-1.75-1.32-1.75-1.08-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.41-1.3.75-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          {repo.label}
+        </a>
+      ))}
+      {project.liveUrl && (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm text-white transition-all hover:opacity-90 no-underline"
+          style="background-color:#E8651A"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Ver en vivo ↗
+        </a>
+      )}
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+
+      <!-- Descripción -->
+      <div class="lg:col-span-2">
+        <div class="p-6 rounded-xl border border-border" style="background-color:#1E1E1E">
+          <h2 class="font-display font-bold text-lg text-fox mb-4">📋 Descripción</h2>
+          <div class="text-muted text-sm leading-relaxed whitespace-pre-line">
+            {project.description}
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar: tecnologías + categorías -->
+      <div class="flex flex-col gap-5">
+        <div class="p-5 rounded-xl border border-border" style="background-color:#1E1E1E">
+          <h3 class="font-bold text-sm text-fox mb-3">🛠️ Tecnologías</h3>
+          <div class="flex flex-wrap gap-1.5">
+            {project.technologies.map((t) => (
+              <span class="tech-badge">{t}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="p-5 rounded-xl border border-border" style="background-color:#1E1E1E">
+          <h3 class="font-bold text-sm text-fox mb-3">🏷️ Categorías</h3>
+          <div class="flex flex-wrap gap-1.5">
+            {project.categories.map((c) => (
+              <span class="tech-badge capitalize">{c}</span>
+            ))}
+          </div>
+        </div>
+
+        {project.githubUrls.length > 0 && (
+          <div class="p-5 rounded-xl border border-border" style="background-color:#1E1E1E">
+            <h3 class="font-bold text-sm text-fox mb-3">🔗 Repositorios</h3>
+            <div class="flex flex-col gap-2">
+              {project.githubUrls.map((repo) => (
+                <a
+                  href={repo.url}
+                  target="_blank"
+                  rel="noopener"
+                  class="text-fox text-xs hover:underline no-underline flex items-center gap-1.5"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.4.6.1.82-.26.82-.58v-2c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.32-1.75-1.32-1.75-1.08-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.41-1.3.75-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .32.22.7.83.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                  {repo.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <!-- Prev / Next -->
+    <div class="grid sm:grid-cols-2 gap-4 mt-12 pt-8 border-t border-border">
+      {prev ? (
+        <a href={`/proyectos/${prev.id}`} class="p-4 rounded-xl border border-border hover:border-fox transition-all no-underline group" style="background-color:#1E1E1E">
+          <p class="text-xs text-muted mb-1">← Anterior</p>
+          <p class="text-sm font-semibold text-white group-hover:text-fox transition-colors">{prev.title}</p>
+        </a>
+      ) : <div />}
+      {next ? (
+        <a href={`/proyectos/${next.id}`} class="p-4 rounded-xl border border-border hover:border-fox transition-all no-underline group text-right" style="background-color:#1E1E1E">
+          <p class="text-xs text-muted mb-1">Siguiente →</p>
+          <p class="text-sm font-semibold text-white group-hover:text-fox transition-colors">{next.title}</p>
+        </a>
+      ) : <div />}
+    </div>
+
+  </div>
+</Layout>
+
+<style>
+  a { text-decoration: none; }
+</style>

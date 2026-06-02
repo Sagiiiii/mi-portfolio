@@ -1,0 +1,139 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import { PROJECTS } from '../../data/projects';
+
+const filters = [
+  { value: '', label: 'Todos' },
+  { value: 'web', label: 'Web' },
+  { value: 'frontend', label: 'Frontend' },
+  { value: 'backend', label: 'Backend' },
+  { value: 'mobile', label: 'Mobile' },
+  { value: 'data', label: 'Data Science' },
+];
+
+function getPlaceholder(technologies: string[]): string {
+  const tech = technologies[0]?.toLowerCase() ?? '';
+  const colorMap: Record<string, [string, string]> = {
+    astro:   ['#FF5D01', '#FF8C00'],
+    python:  ['#3776AB', '#4B8BBE'],
+    laravel: ['#F55247', '#FF6B6B'],
+    javascript: ['#F7DF1E', '#F0C000'],
+    html:    ['#E34F26', '#F06529'],
+    flutter: ['#54C5F8', '#01579B'],
+  };
+  const [c1, c2] = colorMap[tech] ?? ['#E8651A', '#B84E10'];
+  const initial = (technologies[0] ?? '?')[0].toUpperCase();
+  return `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${encodeURIComponent(c1)}"/><stop offset="1" stop-color="${encodeURIComponent(c2)}"/></linearGradient></defs><rect width="400" height="200" fill="url(%23g)"/><text x="200" y="115" text-anchor="middle" font-size="72" font-family="Arial" font-weight="bold" fill="white" opacity="0.9">${initial}</text></svg>`;
+}
+---
+
+<Layout title="Proyectos — Sagiii.dev">
+  <div class="max-w-6xl mx-auto px-4 py-16">
+
+    <div class="mb-10">
+      <p class="text-fox text-xs font-bold tracking-widest uppercase mb-2">PORTAFOLIO</p>
+      <h1 class="font-display font-bold text-4xl mb-2 section-title">Mis <span>Proyectos</span></h1>
+      <div class="fox-divider"></div>
+      <p class="text-muted max-w-xl">
+        Sistemas, plataformas y soluciones construidas con distintas tecnologías y stacks.
+        Haz clic en cualquier proyecto para ver el detalle completo.
+      </p>
+    </div>
+
+    <!-- Filtros -->
+    <div class="flex flex-wrap gap-2 mb-8">
+      {filters.map((f) => (
+        <button class={`filter-btn ${f.value === '' ? 'active' : ''}`} data-filter={f.value}>
+          {f.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- Grid -->
+    <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {PROJECTS.map((project) => {
+        const imgSrc = project.imageUrl || getPlaceholder(project.technologies);
+        return (
+          <div class="project-card flex flex-col" data-categories={project.categories.join(' ')}>
+            <a href={`/proyectos/${project.id}`} class="no-underline block overflow-hidden" style="height:200px">
+              <img
+                src={imgSrc}
+                alt={project.title}
+                class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </a>
+            <div class="flex flex-col flex-1 p-5">
+              <span class="tech-badge mb-3 self-start capitalize">{project.categories[0]}</span>
+              <h3 class="font-display font-bold text-base mb-2 leading-snug">
+                <a href={`/proyectos/${project.id}`} class="text-white hover:text-fox no-underline transition-colors">
+                  {project.title}
+                </a>
+              </h3>
+              <p class="text-muted text-sm leading-relaxed flex-1 mb-3">{project.shortDesc}</p>
+              <div class="flex flex-wrap gap-1 mb-4">
+                {project.technologies.slice(0, 5).map((t) => (
+                  <span class="tech-badge">{t}</span>
+                ))}
+                {project.technologies.length > 5 && (
+                  <span class="tech-badge">+{project.technologies.length - 5}</span>
+                )}
+              </div>
+              <div class="flex gap-2 flex-wrap mt-auto">
+                <a
+                  href={`/proyectos/${project.id}`}
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-white no-underline transition-all hover:opacity-90"
+                  style="background-color:#E8651A"
+                >
+                  Ver detalle →
+                </a>
+                {project.githubUrls.slice(0, 1).map((repo) => (
+                  <a
+                    href={repo.url}
+                    target="_blank"
+                    rel="noopener"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-fox text-fox hover:bg-fox hover:text-white transition-all no-underline"
+                  >
+                    GitHub
+                  </a>
+                ))}
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-border text-muted hover:border-fox hover:text-fox transition-all no-underline"
+                  >
+                    Live ↗
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</Layout>
+
+<style>
+  a { text-decoration: none; }
+</style>
+
+<script>
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.project-card');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter ?? '';
+      filterBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      cards.forEach((card) => {
+        const cats = card.dataset.categories ?? '';
+        card.style.display = filter === '' || cats.includes(filter) ? 'flex' : 'none';
+      });
+    });
+  });
+</script>

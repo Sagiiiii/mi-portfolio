@@ -1,18 +1,163 @@
 ---
+export const prerender = true;
 import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Skills from '../components/Skills.astro';
-import Projects from '../components/Projects.astro';
-import Education from '../components/Education.astro';
-import Contact from '../components/Contact.astro';
+import { getFeatured } from '../data/projects';
+
+const featured = getFeatured();
+
+const techBadges = ['Python', 'Java', 'Angular', 'Flask', 'MySQL', 'MongoDB', 'Android', 'Laravel', 'React', 'Node.js'];
+
+function getPlaceholder(technologies: string[]): string {
+  const tech = technologies[0]?.toLowerCase() ?? '';
+  const colorMap: Record<string, [string, string]> = {
+    astro:   ['#FF5D01', '#FF8C00'],
+    python:  ['#3776AB', '#4B8BBE'],
+    laravel: ['#F55247', '#FF6B6B'],
+    javascript: ['#F7DF1E', '#F0C000'],
+    html:    ['#E34F26', '#F06529'],
+    flutter: ['#54C5F8', '#01579B'],
+  };
+  const [c1, c2] = colorMap[tech] ?? ['#E8651A', '#B84E10'];
+  const initial = (technologies[0] ?? '?')[0].toUpperCase();
+  return `data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${encodeURIComponent(c1)}"/><stop offset="1" stop-color="${encodeURIComponent(c2)}"/></linearGradient></defs><rect width="400" height="200" fill="url(%23g)"/><text x="200" y="115" text-anchor="middle" font-size="72" font-family="Arial" font-weight="bold" fill="white" opacity="0.9">${initial}</text></svg>`;
+}
+
+const services = [
+  { icon: '🌐', title: 'Desarrollo Web', desc: 'Sistemas web, e-commerce y CRM para negocios B2B y B2C.' },
+  { icon: '📱', title: 'Mobile', desc: 'Apps Android nativas y multiplataforma con Flutter.' },
+  { icon: '📊', title: 'Data Science', desc: 'Modelos predictivos y dashboards para toma de decisiones.' },
+  { icon: '🖥️', title: 'Backend & APIs', desc: 'APIs RESTful y bases de datos SQL y NoSQL escalables.' },
+];
 ---
 
 <Layout title="Sagiii.dev — Full Stack Developer & Data Scientist">
-  <Hero />
-  <About />
-  <Skills />
-  <Projects />
-  <Education />
-  <Contact />
+
+  <!-- ── HERO ── -->
+  <section class="py-20 border-b border-border">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+        <div>
+          <p class="text-fox text-xs font-bold tracking-widest uppercase mb-3">
+            Full Stack Developer · Data Science · Mobile
+          </p>
+          <h1 class="font-display font-bold text-5xl lg:text-6xl leading-tight mb-4">
+            Hola, soy<br />
+            <span class="text-fox">David (Sagiii)</span> 👋
+          </h1>
+          <h2 class="text-lg text-muted font-normal mb-5 leading-relaxed">
+            BSc. Data Science · Téc. Diseño de Software · CAPM · Huancayo, Perú 🇵🇪
+          </h2>
+          <p class="text-muted leading-relaxed mb-6 max-w-lg">
+            Desarrollo sistemas web, plataformas e-commerce, apps móviles y soluciones de datos.
+            Apasionado por construir proyectos que resuelven problemas reales.
+          </p>
+
+          <div class="flex flex-wrap gap-2 mb-7">
+            {techBadges.map((tech) => (
+              <span class="tech-badge">{tech}</span>
+            ))}
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <a href="/proyectos" class="cta-primary inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm text-white transition-all">
+              Ver Proyectos →
+            </a>
+            <a href="/sobre-mi" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm border border-fox text-fox hover:bg-fox hover:text-white transition-all no-underline">
+              Sobre mí
+            </a>
+            <a href="/contacto" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm border border-border text-muted hover:border-fox hover:text-fox transition-all no-underline">
+              Contacto
+            </a>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="relative inline-block">
+            <div class="w-56 h-56 rounded-full overflow-hidden avatar-glow" style="border: 3px solid #E8651A;">
+              <img src="/img/FOX2.jpg" alt="David Garcia — Sagiii" class="w-full h-full object-cover" />
+            </div>
+            <div class="absolute bottom-3 right-2 px-3 py-1 rounded-2xl text-xs font-bold text-white flex items-center gap-1" style="background-color:#E8651A">
+              <span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span>
+              Disponible
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 mt-6 w-full max-w-xs">
+            {[['3+','Años exp.'],['10+','Tecnologías'],['B2B','& B2C']].map(([val, lbl]) => (
+              <div class="text-center p-3 rounded-lg border border-border" style="background-color:#1E1E1E">
+                <div class="font-bold text-xl text-fox">{val}</div>
+                <div class="text-xs text-muted">{lbl}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICIOS ── -->
+  <section class="py-16 border-b border-border" style="background-color:#1A1A1A">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="font-display font-bold text-2xl mb-1 section-title">¿Qué puedo hacer por <span>ti</span>?</h2>
+      <div class="fox-divider"></div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {services.map((s) => (
+          <div class="p-5 rounded-xl border border-border hover:border-fox transition-all" style="background-color:#252525">
+            <div class="text-2xl mb-2">{s.icon}</div>
+            <p class="font-bold text-sm mb-1">{s.title}</p>
+            <p class="text-muted text-xs leading-relaxed">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROYECTOS DESTACADOS ── -->
+  <section class="py-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex justify-between items-center mb-1">
+        <h2 class="font-display font-bold text-2xl section-title">Proyectos <span>Destacados</span></h2>
+        <a href="/proyectos" class="text-fox text-sm font-semibold hover:underline no-underline">Ver todos →</a>
+      </div>
+      <div class="fox-divider"></div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {featured.map((project) => {
+          const imgSrc = project.imageUrl || getPlaceholder(project.technologies);
+          return (
+            <div class="project-card flex flex-col">
+              <div class="overflow-hidden" style="height:180px">
+                <img src={imgSrc} alt={project.title} class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
+              </div>
+              <div class="flex flex-col flex-1 p-5">
+                <span class="tech-badge mb-2 self-start capitalize">{project.categories[0]}</span>
+                <h3 class="font-display font-bold text-sm mb-2 leading-snug">{project.title}</h3>
+                <p class="text-muted text-xs leading-relaxed flex-1 mb-3">{project.shortDesc}</p>
+                <div class="flex flex-wrap gap-1 mb-3">
+                  {project.technologies.slice(0, 4).map((t) => (
+                    <span class="tech-badge">{t}</span>
+                  ))}
+                </div>
+                <a
+                  href={`/proyectos/${project.id}`}
+                  class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold text-white no-underline transition-all hover:opacity-90 text-center justify-center"
+                  style="background-color:#E8651A"
+                >
+                  Ver detalle →
+                </a>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
 </Layout>
+
+<style>
+  a { text-decoration: none; }
+  .cta-primary { background-color: #E8651A; }
+  .cta-primary:hover { background-color: #B84E10; transform: translateY(-1px); }
+</style>
