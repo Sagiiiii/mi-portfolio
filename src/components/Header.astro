@@ -1,0 +1,108 @@
+---
+const navLinks = [
+  { href: '#inicio', label: 'Inicio' },
+  { href: '#sobre-mi', label: 'Sobre mí' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#proyectos', label: 'Proyectos' },
+  { href: '#educacion', label: 'Educación' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+
+<nav
+  id="navbar"
+  class="sticky top-0 z-50 border-b border-border"
+  style="background-color:#0E0E0E"
+>
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <!-- Brand -->
+    <a href="#inicio" class="font-display font-bold text-xl text-fox no-underline">
+      🦊 <span class="text-white">Sagiii</span>.dev
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden md:flex items-center gap-1 list-none m-0 p-0">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="nav-link px-3 py-2 text-sm text-muted hover:text-fox transition-colors rounded no-underline"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="menu-btn"
+      class="md:hidden flex flex-col gap-1.5 p-2 cursor-pointer bg-transparent border-none"
+      aria-label="Abrir menú"
+    >
+      <span class="block w-6 h-0.5 bg-white transition-all" id="bar1"></span>
+      <span class="block w-6 h-0.5 bg-white transition-all" id="bar2"></span>
+      <span class="block w-6 h-0.5 bg-white transition-all" id="bar3"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-border" style="background-color:#0E0E0E">
+    <ul class="list-none m-0 p-4 flex flex-col gap-2">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="mobile-nav-link block px-3 py-2 text-sm text-muted hover:text-fox transition-colors rounded no-underline"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .nav-link.active { color: #E8651A; }
+  a { text-decoration: none; }
+</style>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+  menuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  mobileLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+    });
+  });
+
+  // Active section highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href');
+            if (href === '#' + entry.target.id) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+</script>

@@ -1,0 +1,109 @@
+---
+const techBadges = ['Python', 'Java', 'Angular', 'Flask', 'MySQL', 'MongoDB', 'Android', 'Laravel', 'React', 'Node.js'];
+const stats = [
+  { value: '3+', label: 'Años exp.' },
+  { value: '10+', label: 'Tecnologías' },
+  { value: 'B2B', label: '& B2C' },
+];
+---
+
+<section
+  id="inicio"
+  class="py-20 border-b border-border"
+>
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+      <!-- Text -->
+      <div>
+        <p class="text-fox text-xs font-bold tracking-widest uppercase mb-3">
+          Full Stack Developer · Data Science · Mobile
+        </p>
+        <h1 class="font-display font-bold text-5xl lg:text-6xl leading-tight mb-4">
+          Hola, soy<br />
+          <span class="text-fox">David (Sagiii)</span> 👋
+        </h1>
+        <h2 class="text-lg text-muted font-normal mb-5 leading-relaxed">
+          BSc. Data Science · Téc. Diseño de Software · CAPM · Huancayo, Perú 🇵🇪
+        </h2>
+        <p class="text-muted leading-relaxed mb-6 max-w-lg">
+          Desarrollo sistemas web, plataformas e-commerce, apps móviles y soluciones de datos.
+          Apasionado por construir proyectos que resuelven problemas reales.
+        </p>
+
+        <!-- Tech badges -->
+        <div class="flex flex-wrap gap-2 mb-7">
+          {techBadges.map((tech) => (
+            <span class="tech-badge">{tech}</span>
+          ))}
+        </div>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="#proyectos"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition-all"
+            style="background-color:#E8651A;color:#fff;hover:background-color:#B84E10"
+          >
+            Ver Proyectos →
+          </a>
+          <a
+            href="#sobre-mi"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm border border-fox text-fox hover:bg-fox hover:text-white transition-all"
+          >
+            Sobre mí
+          </a>
+          <a
+            href="#contacto"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm border border-border text-muted hover:border-fox hover:text-fox transition-all"
+          >
+            Contacto
+          </a>
+        </div>
+      </div>
+
+      <!-- Avatar -->
+      <div class="flex flex-col items-center">
+        <div class="relative inline-block">
+          <div
+            class="w-56 h-56 rounded-full overflow-hidden border-3 border-fox avatar-glow"
+            style="border: 3px solid #E8651A;"
+          >
+            <img
+              src="/img/FOX2.jpg"
+              alt="David Garcia — Sagiii"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <!-- Available badge -->
+          <div
+            class="absolute bottom-3 right-2 px-3 py-1 rounded-2xl text-xs font-bold text-white flex items-center gap-1"
+            style="background-color:#E8651A"
+          >
+            <span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span>
+            Disponible
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-3 mt-6 w-full max-w-xs">
+          {stats.map((stat) => (
+            <div
+              class="text-center p-3 rounded-lg border border-border"
+              style="background-color:#1E1E1E"
+            >
+              <div class="font-bold text-xl text-fox">{stat.value}</div>
+              <div class="text-xs text-muted">{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  a[href="#proyectos"] { background-color: #E8651A; }
+  a[href="#proyectos"]:hover { background-color: #B84E10; transform: translateY(-1px); }
+</style>

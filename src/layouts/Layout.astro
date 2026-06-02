@@ -1,23 +1,86 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Sagiii.dev',
+  description = 'Portfolio de David Adolfo Garcia Giron — Full Stack Developer & Data Scientist en Huancayo, Perú.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <!-- Preloader -->
+    <div id="preloader">
+      <div class="preloader-content">
+        <div class="preloader-avatar">
+          <img src="/img/FOX2.jpg" alt="Sagiii" />
+        </div>
+        <div class="preloader-brand">
+          🦊 Sagiii<span class="dot">.dev</span>
+        </div>
+        <div class="preloader-bar">
+          <div class="preloader-bar-fill" id="barFill"></div>
+        </div>
+        <p class="preloader-text" id="preloaderText">Cargando...</p>
+      </div>
+    </div>
+
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      (function () {
+        const shown = sessionStorage.getItem('preloader_shown');
+        const preloader = document.getElementById('preloader') as HTMLElement;
+        const fill = document.getElementById('barFill') as HTMLElement;
+        const text = document.getElementById('preloaderText') as HTMLElement;
+
+        if (shown) {
+          preloader.style.display = 'none';
+          return;
+        }
+
+        const messages = ['Iniciando...', 'Cargando proyectos...', 'Listo 🦊'];
+        let width = 0;
+        let msgIndex = 0;
+
+        const interval = setInterval(() => {
+          width += Math.random() * 15 + 5;
+          if (width > 100) width = 100;
+          fill.style.width = width + '%';
+
+          if (width > 30 && msgIndex === 0) { text.textContent = messages[1]; msgIndex = 1; }
+          if (width > 80 && msgIndex === 1) { text.textContent = messages[2]; msgIndex = 2; }
+
+          if (width >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              preloader.classList.add('hidden');
+              sessionStorage.setItem('preloader_shown', '1');
+            }, 400);
+          }
+        }, 80);
+      })();
+    </script>
+  </body>
+</html>

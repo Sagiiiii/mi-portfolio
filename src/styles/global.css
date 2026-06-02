@@ -1,1 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --color-fox: #E8651A;
+  --color-fox-dark: #B84E10;
+  --color-dark: #141414;
+  --color-card: #1E1E1E;
+  --color-card2: #252525;
+  --color-border: #333333;
+  --color-muted: #999999;
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Poppins', sans-serif;
+}
+
+:root {
+  --fox-glow: rgba(232, 101, 26, 0.15);
+  --fox-glow-strong: rgba(232, 101, 26, 0.3);
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #141414;
+  color: #EFEFEF;
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #141414; }
+::-webkit-scrollbar-thumb { background: #B84E10; border-radius: 3px; }
+
+/* Fox divider */
+.fox-divider {
+  border: none;
+  height: 3px;
+  background: linear-gradient(90deg, #E8651A, transparent);
+  margin-bottom: 2rem;
+}
+
+/* Tech badge */
+.tech-badge {
+  display: inline-block;
+  background-color: #252525;
+  color: #E8651A;
+  border: 1px solid #E8651A;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Card hover */
+.project-card {
+  background-color: #1E1E1E;
+  border: 1px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: #E8651A;
+  box-shadow: 0 8px 24px var(--fox-glow-strong);
+}
+
+/* Glow avatar */
+.avatar-glow {
+  box-shadow: 0 0 60px var(--fox-glow-strong);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 30px var(--fox-glow); }
+  50% { box-shadow: 0 0 60px var(--fox-glow-strong); }
+}
+
+/* Preloader */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #141414;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.preloader-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #E8651A;
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+.preloader-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.preloader-brand {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #EFEFEF;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s ease 0.3s forwards;
+}
+
+.preloader-brand .dot { color: #E8651A; }
+
+.preloader-bar {
+  width: 200px;
+  height: 4px;
+  background: #333;
+  border-radius: 2px;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s ease 0.5s forwards;
+}
+
+.preloader-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #B84E10, #E8651A);
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
+
+.preloader-text {
+  font-size: 0.78rem;
+  color: #999;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s ease 0.7s forwards;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Timeline */
+.timeline-line {
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #333;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #E8651A;
+  border: 2px solid #1E1E1E;
+}
+
+/* Filter button active */
+.filter-btn {
+  padding: 4px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid #E8651A;
+  color: #E8651A;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background-color: #E8651A;
+  color: #fff;
+}
+
+/* Section fade-in */
+.section-title span { color: #E8651A; }

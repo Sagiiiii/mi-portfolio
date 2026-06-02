@@ -1,0 +1,144 @@
+---
+const services = [
+  {
+    icon: '🌐',
+    title: 'Desarrollo Web',
+    desc: 'Sistemas web a medida, e-commerce, CRM e inventarios para negocios B2B y B2C.',
+  },
+  {
+    icon: '📱',
+    title: 'Desarrollo Mobile',
+    desc: 'Aplicaciones Android nativas y multiplataforma con Flutter / Xamarin.',
+  },
+  {
+    icon: '📊',
+    title: 'Data Science',
+    desc: 'Análisis de datos, visualización y modelos predictivos para toma de decisiones.',
+  },
+  {
+    icon: '🛒',
+    title: 'E-commerce',
+    desc: 'Implementación de tiendas online con integración de pagos y gestión de pedidos.',
+  },
+  {
+    icon: '🖥️',
+    title: 'Backend & APIs',
+    desc: 'APIs RESTful, bases de datos SQL y NoSQL, arquitectura de sistemas escalables.',
+  },
+  {
+    icon: '🎧',
+    title: 'Soporte TI',
+    desc: 'Mantenimiento de infraestructura tecnológica, equipos y plataformas digitales.',
+  },
+];
+---
+
+<section id="sobre-mi" class="py-20 border-b border-border">
+  <div class="max-w-6xl mx-auto px-4">
+
+    <!-- Header personal -->
+    <div class="grid lg:grid-cols-4 gap-10 items-start mb-14 pb-14 border-b border-border">
+
+      <!-- Avatar -->
+      <div class="flex flex-col items-center">
+        <div class="relative inline-block">
+          <div
+            class="w-44 h-44 rounded-full overflow-hidden avatar-glow"
+            style="border: 3px solid #E8651A;"
+          >
+            <img
+              src="/img/Yo2v.png"
+              alt="David Garcia"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div
+            class="absolute bottom-2 right-0 px-2.5 py-0.5 rounded-2xl text-xs font-bold text-white"
+            style="background-color:#E8651A"
+          >
+            Disponible
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2 mt-4 w-full">
+          {[['3+','Años'],['10+','Tech'],['B2B','& B2C']].map(([val, lbl]) => (
+            <div class="text-center p-2 rounded-lg border border-border" style="background-color:#1E1E1E">
+              <div class="font-bold text-base text-fox">{val}</div>
+              <div class="text-muted" style="font-size:0.62rem">{lbl}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Bio -->
+      <div class="lg:col-span-3">
+        <p class="text-fox text-xs font-bold tracking-widest uppercase mb-2">SOBRE MÍ</p>
+        <h2 class="font-display font-bold text-4xl mb-2 section-title">
+          David A. <span>Garcia Giron</span>
+        </h2>
+        <p class="text-muted text-base mb-4">
+          BSc. Data Science · Téc. Diseño de Software · CAPM Certified
+        </p>
+
+        <div class="flex flex-wrap gap-4 text-sm mb-5">
+          <span class="text-muted">
+            <span class="text-fox mr-1">📍</span>Huancayo, Perú
+          </span>
+          <a href="mailto:sagitaforever64@gmail.com" class="text-muted hover:text-fox no-underline transition-colors">
+            <span class="text-fox mr-1">✉️</span>sagitaforever64@gmail.com
+          </a>
+          <a href="tel:+51985000716" class="text-muted hover:text-fox no-underline transition-colors">
+            <span class="text-fox mr-1">📞</span>+51 985 000 716
+          </a>
+        </div>
+
+        <p class="text-muted leading-relaxed max-w-2xl mb-5">
+          Profesional en tecnología con experiencia en desarrollo de sistemas, soporte técnico
+          y administración de plataformas e-commerce, POS y CRM. Proactivo, versátil y
+          orientado a soluciones, con estudios concluidos en Ingeniería de Sistemas y
+          Ciencia de Datos.
+        </p>
+
+        <div class="flex gap-3 flex-wrap">
+          <a
+            href="#contacto"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm text-white transition-all"
+            style="background-color:#E8651A"
+          >
+            ✉️ Contáctame
+          </a>
+          <a
+            href="#proyectos"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm border border-fox text-fox hover:bg-fox hover:text-white transition-all"
+          >
+            Ver proyectos
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ¿Qué puedo hacer? -->
+    <div>
+      <h3 class="font-display font-bold text-2xl mb-1 section-title">
+        ¿Qué puedo hacer por <span>ti</span>?
+      </h3>
+      <div class="fox-divider"></div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {services.map((svc) => (
+          <div
+            class="p-4 rounded-xl border border-border hover:border-fox transition-all"
+            style="background-color:#252525"
+          >
+            <div class="text-2xl mb-2">{svc.icon}</div>
+            <p class="font-bold text-sm mb-1">{svc.title}</p>
+            <p class="text-muted text-xs leading-relaxed">{svc.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  a { text-decoration: none; }
+</style>

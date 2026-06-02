@@ -1,0 +1,115 @@
+---
+const skillGroups = [
+  {
+    category: 'Lenguajes',
+    items: ['Python', 'Java', 'JavaScript', 'TypeScript', 'Visual Basic', 'PHP'],
+  },
+  {
+    category: 'Front-End',
+    items: ['Angular', 'React', 'Vue.js', 'Astro', 'Bootstrap', 'Tailwind CSS'],
+  },
+  {
+    category: 'Back-End',
+    items: ['Flask', 'Node.js', 'Express', 'Laravel', 'Django'],
+  },
+  {
+    category: 'Bases de datos',
+    items: ['MySQL', 'PostgreSQL', 'MongoDB', 'SQLAlchemy'],
+  },
+  {
+    category: 'Mobile',
+    items: ['Android', 'Flutter', 'Dart', 'Xamarin'],
+  },
+  {
+    category: 'Data Science',
+    items: ['Pandas', 'NumPy', 'Matplotlib', 'Seaborn', 'Scikit-learn', 'Plotly', 'ARIMA'],
+  },
+  {
+    category: 'DevOps / Tools',
+    items: ['Git', 'GitHub', 'GitLab', 'Docker', 'Vercel', 'Render', 'WordPress'],
+  },
+];
+
+const methodologies = ['Scrum', 'XP', 'CRISP-DM', 'B2B', 'B2C', 'Trabajo remoto', 'CAPM'];
+
+const languages = [
+  { name: 'Español', level: 'Nativo', pct: 100 },
+  { name: 'Inglés', level: 'Intermedio', pct: 55 },
+];
+---
+
+<section id="skills" class="py-20 border-b border-border" style="background-color:#1A1A1A">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="font-display font-bold text-3xl mb-1 section-title">
+      Mis <span>Habilidades</span>
+    </h2>
+    <div class="fox-divider"></div>
+
+    <div class="grid lg:grid-cols-3 gap-6">
+
+      <!-- Tecnologías (span 2) -->
+      <div
+        class="lg:col-span-2 p-6 rounded-xl border border-border"
+        style="background-color:#1E1E1E"
+      >
+        <h3 class="font-bold text-base text-fox mb-5">💻 Tecnologías</h3>
+        <div class="flex flex-col gap-4">
+          {skillGroups.map((group) => (
+            <div>
+              <p class="text-xs font-bold text-muted uppercase tracking-wider mb-2">
+                {group.category}
+              </p>
+              <div class="flex flex-wrap gap-1.5">
+                {group.items.map((item) => (
+                  <span class="tech-badge">{item}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Idiomas + Metodologías -->
+      <div class="flex flex-col gap-6">
+
+        <!-- Idiomas -->
+        <div
+          class="p-6 rounded-xl border border-border"
+          style="background-color:#1E1E1E"
+        >
+          <h3 class="font-bold text-base text-fox mb-4">🌍 Idiomas</h3>
+          <div class="flex flex-col gap-4">
+            {languages.map((lang) => (
+              <div>
+                <div class="flex justify-between text-sm mb-1">
+                  <span>{lang.name}</span>
+                  <span class="text-fox font-semibold">{lang.level}</span>
+                </div>
+                <div class="h-1.5 rounded-full" style="background-color:#333">
+                  <div
+                    class="h-full rounded-full"
+                    style={`width:${lang.pct}%;background-color:#E8651A`}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Metodologías -->
+        <div
+          class="p-6 rounded-xl border border-border"
+          style="background-color:#1E1E1E"
+        >
+          <h3 class="font-bold text-base text-fox mb-4">⚙️ Metodologías</h3>
+          <div class="flex flex-wrap gap-2">
+            {methodologies.map((m) => (
+              <span class="tech-badge">{m}</span>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

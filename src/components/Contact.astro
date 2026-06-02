@@ -1,0 +1,131 @@
+---
+const contacts = [
+  {
+    icon: 'GH',
+    label: 'GitHub',
+    href: 'https://github.com/Sagiiiii?tab=repositories',
+    display: '@Sagiii*',
+  },
+  {
+    icon: 'LI',
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/david-garcia-giron-3205322b6/',
+    display: 'David Garcia Giron',
+  },
+  {
+    icon: 'EM',
+    label: 'Email',
+    href: 'mailto:sagitaforever64@gmail.com',
+    display: 'sagitaforever64@gmail.com',
+  },
+];
+---
+
+<section id="contacto" class="py-20 border-b border-border">
+  <div class="max-w-3xl mx-auto px-4">
+
+    <div class="text-center mb-10">
+      <h2 class="font-display font-bold text-3xl mb-2 section-title">
+        ¿Hablamos? <span>🦊</span>
+      </h2>
+      <p class="text-muted">
+        Disponible para proyectos freelance, trabajo en equipo o simplemente conversar sobre tecnología.
+      </p>
+    </div>
+    <div class="fox-divider"></div>
+
+    <!-- Form -->
+    <div
+      class="p-6 md:p-10 rounded-xl border border-border mb-8"
+      style="background-color:#1E1E1E"
+    >
+      <form
+        id="contact-form"
+        action="https://formspree.io/f/xdoqnjbl"
+        method="POST"
+        class="grid gap-4"
+      >
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs text-muted font-semibold mb-1">Nombre *</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Tu nombre"
+              required
+              class="w-full px-4 py-2.5 rounded-lg text-sm text-white border border-border focus:border-fox focus:outline-none transition-colors"
+              style="background-color:#252525"
+            />
+          </div>
+          <div>
+            <label class="block text-xs text-muted font-semibold mb-1">Email *</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="tu@email.com"
+              required
+              class="w-full px-4 py-2.5 rounded-lg text-sm text-white border border-border focus:border-fox focus:outline-none transition-colors"
+              style="background-color:#252525"
+            />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs text-muted font-semibold mb-1">Asunto</label>
+          <input
+            type="text"
+            name="subject"
+            placeholder="¿En qué puedo ayudarte?"
+            class="w-full px-4 py-2.5 rounded-lg text-sm text-white border border-border focus:border-fox focus:outline-none transition-colors"
+            style="background-color:#252525"
+          />
+        </div>
+        <div>
+          <label class="block text-xs text-muted font-semibold mb-1">Mensaje *</label>
+          <textarea
+            name="message"
+            rows="5"
+            placeholder="Cuéntame sobre tu proyecto..."
+            required
+            class="w-full px-4 py-2.5 rounded-lg text-sm text-white border border-border focus:border-fox focus:outline-none transition-colors resize-y"
+            style="background-color:#252525"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full py-3 rounded-lg font-bold text-sm text-white transition-all hover:opacity-90"
+          style="background-color:#E8651A"
+        >
+          ✉️ Enviar mensaje
+        </button>
+      </form>
+      <div id="form-msg" class="hidden mt-4 text-center text-sm text-fox font-semibold"></div>
+    </div>
+
+    <!-- Contact cards -->
+    <div class="grid grid-cols-3 gap-4">
+      {contacts.map((c) => (
+        <a
+          href={c.href}
+          target="_blank"
+          rel="noopener"
+          class="flex flex-col items-center p-4 rounded-xl border border-border hover:border-fox transition-all no-underline group"
+          style="background-color:#1E1E1E"
+        >
+          <span
+            class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs mb-2 border border-fox text-fox group-hover:bg-fox group-hover:text-white transition-all"
+          >
+            {c.icon}
+          </span>
+          <p class="text-xs text-muted mb-0.5">{c.label}</p>
+          <p class="text-fox text-xs font-semibold text-center truncate w-full text-center">{c.display}</p>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  a { text-decoration: none; }
+  input:focus, textarea:focus { border-color: #E8651A; }
+</style>

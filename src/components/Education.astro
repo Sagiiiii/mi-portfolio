@@ -1,0 +1,168 @@
+---
+const experience = [
+  {
+    date: 'Jul 2025 – Nov 2025',
+    role: 'Jefe de Sección Censal',
+    company: 'INEI – Instituto Nacional de Estadística e Informática',
+    location: 'Huancayo, Junín',
+    desc: 'Lideré y supervisé equipos de empadronadores durante los Censos Nacionales de Población y Vivienda. Coordiné el cumplimiento de procedimientos y aseguré la calidad y entrega oportuna de los datos recopilados.',
+  },
+  {
+    date: 'Ago & Nov 2024',
+    role: 'Operador Tecnológico',
+    company: 'INEI – Campañas EMLA y ENOM',
+    location: 'Huancayo, Junín',
+    desc: 'Operé tablets, laptops y sistemas de captura de datos estadísticos. Verifiqué el almacenamiento y transmisión segura de la información.',
+  },
+  {
+    date: 'Sep 2024 – Ene 2025',
+    role: 'Soporte y Actualización Web',
+    company: 'Centro de Distribución DXN',
+    location: 'Huancayo, Junín',
+    desc: 'Actualicé y administré la página web corporativa en WordPress. Publiqué y promocioné eventos en plataformas digitales.',
+  },
+  {
+    date: 'Ene 2023 – Actualidad',
+    role: 'Desarrollador Full Stack',
+    company: 'Freelance – Desarrollo de Sistemas Web',
+    location: 'Remoto',
+    desc: 'Desarrollo de sistemas web a medida: e-commerce, inventarios y CRM. Uso de tecnologías Front-End y Back-End con bases de datos SQL y NoSQL.',
+  },
+  {
+    date: 'Feb 2022 – Feb 2023',
+    role: 'Responsable de Soporte y Almacén',
+    company: 'Soreus Motors E.I.R.L.',
+    location: 'El Tambo, Huancayo',
+    desc: 'Desarrollé un sistema e-commerce personalizado para la empresa. Brindé soporte tecnológico y gestioné procesos de almacén, inventarios y CRM.',
+  },
+  {
+    date: 'Jun 2022 – Dic 2022',
+    role: 'Responsable de Mantenimiento TI',
+    company: 'C.E.P. María Auxiliadora',
+    location: 'Huancayo, Junín',
+    desc: 'Soporte técnico a equipos informáticos y administración del sistema web institucional.',
+  },
+];
+
+const education = [
+  {
+    year: '2025',
+    degree: 'Bachelor of Science in Data Science',
+    institution: 'Continental University of Florida (CFU)',
+    detail: 'Estados Unidos',
+    icon: '🎓',
+  },
+  {
+    year: '2025',
+    degree: 'Certificate in Data Programming',
+    institution: 'Continental University of Florida (CFU)',
+    detail: 'Estados Unidos',
+    icon: '📜',
+  },
+  {
+    year: '2025',
+    degree: 'Certificate in Machine Learning',
+    institution: 'Continental University of Florida (CFU)',
+    detail: 'Estados Unidos',
+    icon: '🤖',
+  },
+  {
+    year: '2024',
+    degree: 'Certificación Internacional CAPM',
+    institution: 'Project Management Institute (PMI)',
+    detail: 'Internacional',
+    icon: '🏅',
+  },
+  {
+    year: '2024',
+    degree: 'Certificado en Minería 4.0',
+    institution: 'Institución certificadora',
+    detail: 'Perú',
+    icon: '⚙️',
+  },
+  {
+    year: '2024',
+    degree: 'Certificado en Python — De 0 a Experto',
+    institution: 'Institución certificadora',
+    detail: 'Perú',
+    icon: '🐍',
+  },
+  {
+    year: '2024',
+    degree: 'Certificado en Dashboard con Excel',
+    institution: 'Institución certificadora',
+    detail: 'Perú',
+    icon: '📊',
+  },
+  {
+    year: '2020 – 2022',
+    degree: 'Ingeniería de Sistemas',
+    institution: 'Universidad Continental',
+    detail: 'Huancayo, Perú — Estudios hasta 6to ciclo, convalidado en CFU',
+    icon: '🏛️',
+  },
+  {
+    year: '2017 – 2020',
+    degree: 'Diseño de Software e Integración de Sistemas',
+    institution: 'TECSUP',
+    detail: 'Lima, Perú — Título Técnico',
+    icon: '🔧',
+  },
+];
+---
+
+<section id="educacion" class="py-20 border-b border-border" style="background-color:#1A1A1A">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="font-display font-bold text-3xl mb-1 section-title">
+      Experiencia & <span>Formación</span>
+    </h2>
+    <div class="fox-divider"></div>
+
+    <div class="grid lg:grid-cols-2 gap-10">
+
+      <!-- Experiencia profesional -->
+      <div class="p-6 rounded-xl border border-border" style="background-color:#1E1E1E">
+        <h3 class="font-bold text-base text-fox mb-6">💼 Experiencia Profesional</h3>
+        <div style="position:relative">
+          <div class="timeline-line"></div>
+          {experience.map((job, i) => (
+            <div style="position:relative;padding-left:36px" class={i < experience.length - 1 ? 'mb-8' : ''}>
+              <div class="timeline-dot"></div>
+              <div class="flex justify-between items-start flex-wrap gap-1 mb-1">
+                <h4 class="font-bold text-sm">{job.role}</h4>
+                <span class="tech-badge" style="font-size:0.62rem">{job.date}</span>
+              </div>
+              <p class="text-fox text-xs font-semibold mb-0.5">{job.company}</p>
+              <p class="text-muted text-xs mb-1">📍 {job.location}</p>
+              <p class="text-muted text-xs leading-relaxed">{job.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Formación académica -->
+      <div class="p-6 rounded-xl border border-border" style="background-color:#1E1E1E">
+        <h3 class="font-bold text-base text-fox mb-6">🎓 Formación Académica</h3>
+        <div class="flex flex-col gap-5">
+          {education.map((edu) => (
+            <div class="flex gap-3">
+              <div
+                class="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-lg border border-fox"
+                style="background-color:#252525"
+              >
+                {edu.icon}
+              </div>
+              <div>
+                <span class="tech-badge mb-1 inline-block" style="font-size:0.62rem">{edu.year}</span>
+                <h4 class="font-bold text-sm mb-0">{edu.degree}</h4>
+                <p class="text-fox text-xs font-semibold mb-0">{edu.institution}</p>
+                <p class="text-muted text-xs">{edu.detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
